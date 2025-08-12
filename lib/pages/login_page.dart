@@ -177,7 +177,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                   ),
                   const SizedBox(height: 36),
                   Text(
-                    'System, Integration & Architecture',
+                    'Information Assurance & Security II',
                     style: theme.textTheme.headlineSmall?.copyWith(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
@@ -272,7 +272,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
               right: 0,
               child: Center(
                 child: Text(
-                  '© 2025 SIA - System, Integration & Architecture',
+                  '© 2025 SIA - Information Assurance & Security II',
                   style: TextStyle(
                     color: Colors.white60,
                     fontWeight: FontWeight.w400,
@@ -349,7 +349,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                   SizedBox(height: isWide ? 20 : 14),
                   Center(
                     child: Text(
-                      "Welcome to SIA Portal",
+                      "Welcome to IAS Portal",
                       key: _titleKey,
                       style: theme.textTheme.headlineSmall!.copyWith(
                           fontWeight: FontWeight.bold,
@@ -361,7 +361,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                   const SizedBox(height: 10),
                   Center(
                     child: Text(
-                      "System, Integration & Architecture",
+                      "Information Assurance & Security II",
                       style: theme.textTheme.titleSmall?.copyWith(
                         fontWeight: FontWeight.w600,
                         color: theme.primaryColor.withOpacity(0.87),
@@ -517,7 +517,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                   ),
                   const SizedBox(height: 7),
                   Text(
-                    "© 2025 SIA - System, Integration & Architecture",
+                    "© 2025 IAS - Information Assurance & Security II",
                     style: TextStyle(
                       fontSize: 12.5,
                       color: Colors.grey[600],

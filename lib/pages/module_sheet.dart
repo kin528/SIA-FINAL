@@ -126,7 +126,7 @@ class _ModuleSheetState extends State<ModuleSheet> {
             ),
             const SizedBox(height: 10),
             Text(
-              "System Integration & Architecture",
+              "Information Assurance & Security II",
               style: TextStyle(
                 fontWeight: FontWeight.w600,
                 fontSize: isMobile ? 13 : 17,

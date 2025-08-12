@@ -134,7 +134,7 @@ class _UserPageState extends State<UserPage> with TickerProviderStateMixin {
               const SizedBox(width: 12),
               Flexible(
                 child: Text(
-                  'System Integration & Architecture',
+                  'Information Assurance & Security II',
                   style: theme.textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
@@ -317,7 +317,7 @@ class _UserPageState extends State<UserPage> with TickerProviderStateMixin {
                     ),
                     const SizedBox(height: 28),
                     Text(
-                      "Welcome to System Integration & Architecture Portal!",
+                      "Welcome to Information Assurance & Security II Portal! ",
                       style: theme.textTheme.headlineLarge?.copyWith(
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
