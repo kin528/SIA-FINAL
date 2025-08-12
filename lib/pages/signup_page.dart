@@ -21,16 +21,20 @@ class _SignupPageState extends State<SignupPage> with TickerProviderStateMixin {
   final TextEditingController _ageController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
 
   final _firstNameFocus = FocusNode();
   final _lastNameFocus = FocusNode();
   final _ageFocus = FocusNode();
   final _emailFocus = FocusNode();
   final _passwordFocus = FocusNode();
+  final _confirmPasswordFocus = FocusNode();
 
   bool _isLoading = false;
   String? _errorMessage;
   bool _obscurePassword = true;
+  bool _obscureConfirmPassword = true;
 
   String? _selectedSex;
   final List<String> _sexOptions = ['Male', 'Female', 'Other'];
@@ -54,11 +58,13 @@ class _SignupPageState extends State<SignupPage> with TickerProviderStateMixin {
     _ageController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
+    _confirmPasswordController.dispose();
     _firstNameFocus.dispose();
     _lastNameFocus.dispose();
     _ageFocus.dispose();
     _emailFocus.dispose();
     _passwordFocus.dispose();
+    _confirmPasswordFocus.dispose();
     _logoController.dispose();
     super.dispose();
   }
@@ -394,7 +400,7 @@ class _SignupPageState extends State<SignupPage> with TickerProviderStateMixin {
                           TextFormField(
                             controller: _passwordController,
                             focusNode: _passwordFocus,
-                            textInputAction: TextInputAction.done,
+                            textInputAction: TextInputAction.next,
                             obscureText: _obscurePassword,
                             decoration: InputDecoration(
                               labelText: 'Password',
@@ -423,6 +429,51 @@ class _SignupPageState extends State<SignupPage> with TickerProviderStateMixin {
                             validator: (value) => value!.length < 6
                                 ? 'Password must be at least 6 characters'
                                 : null,
+                            onFieldSubmitted: (_) {
+                              FocusScope.of(context)
+                                  .requestFocus(_confirmPasswordFocus);
+                            },
+                          ),
+                          const SizedBox(height: 16),
+                          TextFormField(
+                            controller: _confirmPasswordController,
+                            focusNode: _confirmPasswordFocus,
+                            textInputAction: TextInputAction.done,
+                            obscureText: _obscureConfirmPassword,
+                            decoration: InputDecoration(
+                              labelText: 'Confirm Password',
+                              prefixIcon: const Icon(Icons.lock_outline),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              filled: true,
+                              fillColor: Colors.blueGrey[50],
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  _obscureConfirmPassword
+                                      ? Icons.visibility_off
+                                      : Icons.visibility,
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    _obscureConfirmPassword =
+                                        !_obscureConfirmPassword;
+                                  });
+                                },
+                                tooltip: _obscureConfirmPassword
+                                    ? "Show password"
+                                    : "Hide password",
+                              ),
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please confirm your password';
+                              }
+                              if (value != _passwordController.text) {
+                                return 'Passwords do not match';
+                              }
+                              return null;
+                            },
                             onFieldSubmitted: (_) => _handleSignup(),
                           ),
                           const SizedBox(height: 28),

@@ -38,7 +38,7 @@ class _PlayModule4PageState extends State<PlayModule4Page> {
     final user = FirebaseAuth.instance.currentUser;
     if (user != null && user.uid != adminUid) {
       _mode = 1;
-      _startQuiz();
+      // do not auto-start quiz, let user click "Start Quiz"
     }
   }
 
@@ -247,7 +247,6 @@ class _PlayModule4PageState extends State<PlayModule4Page> {
               ),
             ),
             onPressed: () {
-              _startQuiz();
               setState(() => _mode = 1);
             },
             label: const Text('Play'),
@@ -348,7 +347,44 @@ class _PlayModule4PageState extends State<PlayModule4Page> {
   }
 
   Widget _buildPlay(BuildContext context) {
-    if (_shuffledIndexes.isEmpty) _startQuiz();
+    // Only start the quiz after pressing the Start Quiz button
+    if (_shuffledIndexes.isEmpty) {
+      return Center(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 40),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(Icons.quiz, size: 80, color: Colors.blueAccent),
+              const SizedBox(height: 24),
+              const Text(
+                "Ready to begin the quiz?",
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 32),
+              ElevatedButton.icon(
+                icon: const Icon(Icons.play_arrow),
+                label: const Text("Start Quiz"),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blueAccent,
+                  foregroundColor: Colors.white,
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 20, horizontal: 32),
+                  textStyle: const TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.bold),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16)),
+                ),
+                onPressed: () {
+                  _startQuiz();
+                },
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
     final idx = _shuffledIndexes[_current];
     final q = _questions[idx]['question'] as String;
     final choices = _shuffledChoices[idx];
@@ -485,10 +521,35 @@ class _PlayModule4PageState extends State<PlayModule4Page> {
                               bool correct = _selectedChoice == answer;
                               if (correct) _score++;
                               if (isLast) {
-                                setState(() {
-                                  _quizFinished = true;
-                                });
-                                await _saveScore();
+                                // Show confirmation dialog before submitting
+                                final confirm = await showDialog<bool>(
+                                  context: context,
+                                  builder: (context) => AlertDialog(
+                                    title: const Text('Are you done?'),
+                                    content: const Text(
+                                        'Do you want to submit your answers?'),
+                                    actions: [
+                                      TextButton(
+                                        child: const Text('No'),
+                                        onPressed: () =>
+                                            Navigator.of(context).pop(false),
+                                      ),
+                                      TextButton(
+                                        child: const Text('Yes'),
+                                        onPressed: () =>
+                                            Navigator.of(context).pop(true),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                                if (confirm == true) {
+                                  setState(() {
+                                    _quizFinished = true;
+                                  });
+                                  await _saveScore();
+                                  // Show result and done button below
+                                }
+                                // If "No", do nothing (stay on the last question)
                               } else {
                                 setState(() {
                                   _current++;
@@ -510,27 +571,30 @@ class _PlayModule4PageState extends State<PlayModule4Page> {
                   ),
                 ],
               ),
-            if (_quizFinished) _buildReview(context),
-            const SizedBox(height: 24),
-            ElevatedButton.icon(
-              icon: const Icon(Icons.shuffle),
-              label: const Text("Shuffle & Restart"),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.green.shade400,
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.symmetric(vertical: 18),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12)),
-                textStyle:
-                    const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+            if (_quizFinished)
+              Column(
+                children: [
+                  _buildReview(context),
+                  const SizedBox(height: 24),
+                  ElevatedButton.icon(
+                    icon: const Icon(Icons.done),
+                    label: const Text("Done"),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.green.shade400,
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 18, horizontal: 36),
+                      textStyle: const TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.bold),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12)),
+                    ),
+                    onPressed: () {
+                      Navigator.popUntil(context, (route) => route.isFirst);
+                    },
+                  ),
+                ],
               ),
-              onPressed: () {
-                _startQuiz();
-                setState(() {
-                  _quizFinished = false;
-                });
-              },
-            ),
           ],
         ),
       ),
