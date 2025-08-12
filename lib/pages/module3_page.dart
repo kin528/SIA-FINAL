@@ -5,7 +5,6 @@ import 'package:flutter/foundation.dart'; // for kIsWeb
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'simple_document_editor.dart';
 // Only import dart:html on web
 // ignore: avoid_web_libraries_in_flutter
 import 'dart:html' as html;
@@ -198,28 +197,34 @@ class _Module3PageState extends State<Module3Page> {
                       Row(
                         children: [
                           IconButton(
-                            icon: const Icon(Icons.arrow_back, color: Colors.black87),
+                            icon: const Icon(Icons.arrow_back,
+                                color: Colors.black87),
                             tooltip: 'Back',
                             onPressed: () => Navigator.of(context).pop(),
                           ),
                         ],
                       ),
                       Icon(Icons.cloud_upload_rounded,
-                          size: isWide ? 64 : 44, color: Theme.of(context).primaryColor),
+                          size: isWide ? 64 : 44,
+                          color: Theme.of(context).primaryColor),
                       SizedBox(height: isWide ? 20 : 12),
                       Text(
                         "Module 3 - Document Upload",
-                        style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black87,
-                              fontSize: isWide ? 28 : 20,
-                            ),
+                        style:
+                            Theme.of(context).textTheme.headlineSmall?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black87,
+                                  fontSize: isWide ? 28 : 20,
+                                ),
                         textAlign: TextAlign.center,
                       ),
                       const SizedBox(height: 8),
                       Text(
                         "Upload your .doc or .docx file to Cloudinary and view all your uploads below.",
-                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: isWide ? 18 : 14),
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyLarge
+                            ?.copyWith(fontSize: isWide ? 18 : 14),
                         textAlign: TextAlign.center,
                       ),
                       const SizedBox(height: 32),
@@ -257,18 +262,25 @@ class _Module3PageState extends State<Module3Page> {
                                 icon: const Icon(Icons.upload_file, size: 28),
                                 label: const Text(
                                   "Select and Upload Document",
-                                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w600),
                                 ),
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: Theme.of(context).primaryColor,
+                                  backgroundColor:
+                                      Theme.of(context).primaryColor,
                                   foregroundColor: Colors.white,
-                                  padding: EdgeInsets.symmetric(vertical: isWide ? 22 : 16, horizontal: isWide ? 32 : 24),
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: isWide ? 22 : 16,
+                                      horizontal: isWide ? 32 : 24),
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(isWide ? 20 : 14),
+                                    borderRadius:
+                                        BorderRadius.circular(isWide ? 20 : 14),
                                   ),
                                   elevation: 6,
                                 ),
-                                onPressed: _uploading ? null : _pickAndUploadDocument,
+                                onPressed:
+                                    _uploading ? null : _pickAndUploadDocument,
                               ),
                             ),
                             SizedBox(
@@ -277,14 +289,19 @@ class _Module3PageState extends State<Module3Page> {
                                 icon: const Icon(Icons.note_add, size: 28),
                                 label: const Text(
                                   "Create Document",
-                                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w600),
                                 ),
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.green,
                                   foregroundColor: Colors.white,
-                                  padding: EdgeInsets.symmetric(vertical: isWide ? 22 : 16, horizontal: isWide ? 32 : 24),
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: isWide ? 22 : 16,
+                                      horizontal: isWide ? 32 : 24),
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(isWide ? 20 : 14),
+                                    borderRadius:
+                                        BorderRadius.circular(isWide ? 20 : 14),
                                   ),
                                   elevation: 6,
                                 ),
@@ -292,7 +309,8 @@ class _Module3PageState extends State<Module3Page> {
                                   showDialog(
                                     context: context,
                                     builder: (context) => AlertDialog(
-                                      title: const Text("How to Create a DOCX Document"),
+                                      title: const Text(
+                                          "How to Create a DOCX Document"),
                                       content: const Text(
                                         "To create a .docx document, you must use an existing Microsoft account, or create and edit a .docx file using Microsoft Word, LibreOffice, or another editor on your computer. Then upload it here.\n\nIf you already have a Microsoft account, you can use Office Online Word to create your document.",
                                       ),
@@ -300,16 +318,23 @@ class _Module3PageState extends State<Module3Page> {
                                         TextButton(
                                           onPressed: () {
                                             if (kIsWeb) {
-                                              html.window.open('https://www.office.com/launch/word', '_blank');
+                                              html.window.open(
+                                                  'https://www.office.com/launch/word',
+                                                  '_blank');
                                             } else {
-                                              final uri = Uri.parse('https://www.office.com/launch/word');
-                                              launchUrl(uri, mode: LaunchMode.externalApplication);
+                                              final uri = Uri.parse(
+                                                  'https://www.office.com/launch/word');
+                                              launchUrl(uri,
+                                                  mode: LaunchMode
+                                                      .externalApplication);
                                             }
                                           },
-                                          child: const Text("Open Office Online Word"),
+                                          child: const Text(
+                                              "Open Office Online Word"),
                                         ),
                                         TextButton(
-                                          onPressed: () => Navigator.pop(context),
+                                          onPressed: () =>
+                                              Navigator.pop(context),
                                           child: const Text("Close"),
                                         ),
                                       ],
@@ -325,7 +350,9 @@ class _Module3PageState extends State<Module3Page> {
                         SelectableText(
                           "Document URL:\n$_docUrl",
                           textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: isWide ? 16 : 12, color: Colors.blueAccent),
+                          style: TextStyle(
+                              fontSize: isWide ? 16 : 12,
+                              color: Colors.blueAccent),
                         ),
                       ],
                       if (_uploading)
@@ -337,50 +364,68 @@ class _Module3PageState extends State<Module3Page> {
                       const Divider(),
                       Row(
                         children: [
-                          Icon(Icons.folder_open_rounded, color: Theme.of(context).primaryColor),
+                          Icon(Icons.folder_open_rounded,
+                              color: Theme.of(context).primaryColor),
                           const SizedBox(width: 8),
                           Text(
                             "All Uploaded Documents",
-                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: isWide ? 20 : 16),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: isWide ? 20 : 16),
                           ),
                         ],
                       ),
                       const SizedBox(height: 8),
                       SizedBox(
                         height: isWide ? 320 : 220,
-                        child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+                        child:
+                            StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
                           stream: uploadsStream,
                           builder: (context, snapshot) {
-                            if (snapshot.connectionState == ConnectionState.waiting) {
-                              return const Center(child: CircularProgressIndicator());
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return const Center(
+                                  child: CircularProgressIndicator());
                             }
                             if (snapshot.hasError) {
                               return Text('Error: \\${snapshot.error}');
                             }
                             final docs = snapshot.data?.docs ?? [];
                             if (docs.isEmpty) {
-                              return const Center(child: Text("No uploads yet."));
+                              return const Center(
+                                  child: Text("No uploads yet."));
                             }
                             return ListView.separated(
                               itemCount: docs.length,
-                              separatorBuilder: (context, i) => const SizedBox(height: 10),
+                              separatorBuilder: (context, i) =>
+                                  const SizedBox(height: 10),
                               itemBuilder: (context, i) {
                                 final data = docs[i].data();
                                 final docId = docs[i].id;
                                 return Card(
                                   elevation: 3,
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(isWide ? 18 : 10),
+                                    borderRadius:
+                                        BorderRadius.circular(isWide ? 18 : 10),
                                   ),
                                   child: ListTile(
-                                    leading: const Icon(Icons.description, color: Colors.blueAccent),
-                                    title: Text(data['fileName'] ?? 'Document', style: TextStyle(fontWeight: FontWeight.w600, fontSize: isWide ? 18 : 14)),
-                                    subtitle: Text(data['docUrl'] ?? '', maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: isWide ? 14 : 11)),
+                                    leading: const Icon(Icons.description,
+                                        color: Colors.blueAccent),
+                                    title: Text(data['fileName'] ?? 'Document',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: isWide ? 18 : 14)),
+                                    subtitle: Text(data['docUrl'] ?? '',
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                            fontSize: isWide ? 14 : 11)),
                                     trailing: Row(
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
                                         IconButton(
-                                          icon: const Icon(Icons.open_in_new, color: Colors.green),
+                                          icon: const Icon(Icons.open_in_new,
+                                              color: Colors.green),
                                           tooltip: "Open Document",
                                           onPressed: () async {
                                             final url = data['docUrl'];
@@ -391,22 +436,36 @@ class _Module3PageState extends State<Module3Page> {
                                         ),
                                         if (isAdmin)
                                           IconButton(
-                                            icon: const Icon(Icons.delete, color: Colors.red),
+                                            icon: const Icon(Icons.delete,
+                                                color: Colors.red),
                                             tooltip: "Delete Document",
                                             onPressed: () async {
-                                              final confirm = await showDialog<bool>(
+                                              final confirm =
+                                                  await showDialog<bool>(
                                                 context: context,
-                                                builder: (context) => AlertDialog(
-                                                  title: const Text("Delete Document"),
-                                                  content: const Text("Are you sure you want to delete this document?"),
+                                                builder: (context) =>
+                                                    AlertDialog(
+                                                  title: const Text(
+                                                      "Delete Document"),
+                                                  content: const Text(
+                                                      "Are you sure you want to delete this document?"),
                                                   actions: [
                                                     TextButton(
-                                                      onPressed: () => Navigator.pop(context, false),
-                                                      child: const Text("Cancel"),
+                                                      onPressed: () =>
+                                                          Navigator.pop(
+                                                              context, false),
+                                                      child:
+                                                          const Text("Cancel"),
                                                     ),
                                                     TextButton(
-                                                      onPressed: () => Navigator.pop(context, true),
-                                                      child: const Text("Delete", style: TextStyle(color: Colors.red)),
+                                                      onPressed: () =>
+                                                          Navigator.pop(
+                                                              context, true),
+                                                      child: const Text(
+                                                          "Delete",
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.red)),
                                                     ),
                                                   ],
                                                 ),
@@ -435,4 +494,4 @@ class _Module3PageState extends State<Module3Page> {
       ),
     );
   }
-} 
+}

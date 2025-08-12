@@ -134,7 +134,8 @@ class _PlayPanelContent extends StatelessWidget {
                   ],
                 ),
                 padding: const EdgeInsets.all(12),
-                child: const Icon(Icons.play_arrow_rounded, color: Colors.white, size: 32),
+                child: const Icon(Icons.play_arrow_rounded,
+                    color: Colors.white, size: 32),
               ),
               const SizedBox(width: 15),
               Text(
@@ -179,7 +180,8 @@ class _PlayPanelContent extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
-                    Icon(Icons.sports_esports, color: siaPrimary, size: isMobile ? 24 : 32),
+                    Icon(Icons.sports_esports,
+                        color: siaPrimary, size: isMobile ? 24 : 32),
                     const SizedBox(width: 14),
                     Expanded(
                       child: Text(
@@ -205,7 +207,8 @@ class _PlayPanelContent extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(isMobile ? 10 : 16),
+                          borderRadius:
+                              BorderRadius.circular(isMobile ? 10 : 16),
                         ),
                         elevation: 2,
                       ),

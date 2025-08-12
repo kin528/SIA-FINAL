@@ -5,7 +5,6 @@ import 'package:flutter/foundation.dart'; // for kIsWeb
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'simple_document_editor.dart';
 // Only import dart:html on web
 // ignore: avoid_web_libraries_in_flutter
 import 'dart:html' as html;
@@ -263,18 +262,25 @@ class _Module2PageState extends State<Module2Page> {
                                 icon: const Icon(Icons.upload_file, size: 28),
                                 label: const Text(
                                   "Select and Upload Document",
-                                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w600),
                                 ),
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: Theme.of(context).primaryColor,
+                                  backgroundColor:
+                                      Theme.of(context).primaryColor,
                                   foregroundColor: Colors.white,
-                                  padding: EdgeInsets.symmetric(vertical: isWide ? 22 : 16, horizontal: isWide ? 32 : 24),
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: isWide ? 22 : 16,
+                                      horizontal: isWide ? 32 : 24),
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(isWide ? 20 : 14),
+                                    borderRadius:
+                                        BorderRadius.circular(isWide ? 20 : 14),
                                   ),
                                   elevation: 6,
                                 ),
-                                onPressed: _uploading ? null : _pickAndUploadDocument,
+                                onPressed:
+                                    _uploading ? null : _pickAndUploadDocument,
                               ),
                             ),
                             SizedBox(
@@ -283,14 +289,19 @@ class _Module2PageState extends State<Module2Page> {
                                 icon: const Icon(Icons.note_add, size: 28),
                                 label: const Text(
                                   "Create Document",
-                                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w600),
                                 ),
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.green,
                                   foregroundColor: Colors.white,
-                                  padding: EdgeInsets.symmetric(vertical: isWide ? 22 : 16, horizontal: isWide ? 32 : 24),
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: isWide ? 22 : 16,
+                                      horizontal: isWide ? 32 : 24),
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(isWide ? 20 : 14),
+                                    borderRadius:
+                                        BorderRadius.circular(isWide ? 20 : 14),
                                   ),
                                   elevation: 6,
                                 ),
@@ -298,7 +309,8 @@ class _Module2PageState extends State<Module2Page> {
                                   showDialog(
                                     context: context,
                                     builder: (context) => AlertDialog(
-                                      title: const Text("How to Create a DOCX Document"),
+                                      title: const Text(
+                                          "How to Create a DOCX Document"),
                                       content: const Text(
                                         "To create a .docx document, you must use an existing Microsoft account, or create and edit a .docx file using Microsoft Word, LibreOffice, or another editor on your computer. Then upload it here.\n\nIf you already have a Microsoft account, you can use Office Online Word to create your document.",
                                       ),
@@ -306,16 +318,23 @@ class _Module2PageState extends State<Module2Page> {
                                         TextButton(
                                           onPressed: () {
                                             if (kIsWeb) {
-                                              html.window.open('https://www.office.com/launch/word', '_blank');
+                                              html.window.open(
+                                                  'https://www.office.com/launch/word',
+                                                  '_blank');
                                             } else {
-                                              final uri = Uri.parse('https://www.office.com/launch/word');
-                                              launchUrl(uri, mode: LaunchMode.externalApplication);
+                                              final uri = Uri.parse(
+                                                  'https://www.office.com/launch/word');
+                                              launchUrl(uri,
+                                                  mode: LaunchMode
+                                                      .externalApplication);
                                             }
                                           },
-                                          child: const Text("Open Office Online Word"),
+                                          child: const Text(
+                                              "Open Office Online Word"),
                                         ),
                                         TextButton(
-                                          onPressed: () => Navigator.pop(context),
+                                          onPressed: () =>
+                                              Navigator.pop(context),
                                           child: const Text("Close"),
                                         ),
                                       ],

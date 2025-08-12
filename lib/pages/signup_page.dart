@@ -172,7 +172,7 @@ class _SignupPageState extends State<SignupPage> with TickerProviderStateMixin {
     );
 
     return Scaffold(
-      backgroundColor: theme.colorScheme.background,
+      backgroundColor: theme.colorScheme.surface,
       body: Stack(
         children: [
           Positioned.fill(
@@ -237,8 +237,10 @@ class _SignupPageState extends State<SignupPage> with TickerProviderStateMixin {
                           SizedBox(height: isWide ? 20 : 14),
                           Text(
                             "Sign Up to SIA Portal",
-                            style: theme.textTheme.headlineSmall!
-                                .copyWith(fontWeight: FontWeight.bold, fontSize: isWide ? 29 : 21, letterSpacing: .7),
+                            style: theme.textTheme.headlineSmall!.copyWith(
+                                fontWeight: FontWeight.bold,
+                                fontSize: isWide ? 29 : 21,
+                                letterSpacing: .7),
                           ),
                           const SizedBox(height: 10),
                           Text(
@@ -264,7 +266,8 @@ class _SignupPageState extends State<SignupPage> with TickerProviderStateMixin {
                               child: Text(
                                 _errorMessage!,
                                 style: const TextStyle(
-                                    color: Colors.red, fontWeight: FontWeight.bold),
+                                    color: Colors.red,
+                                    fontWeight: FontWeight.bold),
                               ),
                             ),
                           Row(
@@ -283,8 +286,9 @@ class _SignupPageState extends State<SignupPage> with TickerProviderStateMixin {
                                     filled: true,
                                     fillColor: Colors.blueGrey[50],
                                   ),
-                                  validator: (value) =>
-                                      value!.isEmpty ? 'First name required' : null,
+                                  validator: (value) => value!.isEmpty
+                                      ? 'First name required'
+                                      : null,
                                   onFieldSubmitted: (_) {
                                     FocusScope.of(context)
                                         .requestFocus(_lastNameFocus);
@@ -306,8 +310,9 @@ class _SignupPageState extends State<SignupPage> with TickerProviderStateMixin {
                                     filled: true,
                                     fillColor: Colors.blueGrey[50],
                                   ),
-                                  validator: (value) =>
-                                      value!.isEmpty ? 'Last name required' : null,
+                                  validator: (value) => value!.isEmpty
+                                      ? 'Last name required'
+                                      : null,
                                   onFieldSubmitted: (_) {
                                     FocusScope.of(context)
                                         .requestFocus(_ageFocus);
@@ -381,7 +386,8 @@ class _SignupPageState extends State<SignupPage> with TickerProviderStateMixin {
                             validator: (value) =>
                                 value!.isEmpty ? 'Email required' : null,
                             onFieldSubmitted: (_) {
-                              FocusScope.of(context).requestFocus(_passwordFocus);
+                              FocusScope.of(context)
+                                  .requestFocus(_passwordFocus);
                             },
                           ),
                           const SizedBox(height: 16),
@@ -423,7 +429,8 @@ class _SignupPageState extends State<SignupPage> with TickerProviderStateMixin {
                           SizedBox(
                             width: double.infinity,
                             child: _isLoading
-                                ? const Center(child: CircularProgressIndicator())
+                                ? const Center(
+                                    child: CircularProgressIndicator())
                                 : ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: theme.primaryColor,
@@ -476,12 +483,14 @@ class _SignupPageState extends State<SignupPage> with TickerProviderStateMixin {
                                 onPressed: () => Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => const LoginPage(showSplash: false)),
+                                      builder: (context) =>
+                                          const LoginPage(showSplash: false)),
                                 ),
                                 child: const Text(
                                   'Log in',
                                   style: TextStyle(
-                                      fontWeight: FontWeight.bold, color: Color(0xFF415A77)),
+                                      fontWeight: FontWeight.bold,
+                                      color: Color(0xFF415A77)),
                                 ),
                               ),
                             ],
@@ -541,9 +550,11 @@ class _BackgroundNetworkPainter extends CustomPainter {
     }
     for (final node in nodes) {
       canvas.drawCircle(node, 15, nodePaint);
-      canvas.drawCircle(node, 7, nodePaint..color = Colors.blueGrey.withOpacity(0.18));
+      canvas.drawCircle(
+          node, 7, nodePaint..color = Colors.blueGrey.withOpacity(0.18));
     }
   }
+
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

@@ -106,7 +106,8 @@ class _ModuleSheetState extends State<ModuleSheet> {
                     ],
                   ),
                   padding: const EdgeInsets.all(12),
-                  child: const Icon(Icons.menu_book, color: Colors.white, size: 32),
+                  child: const Icon(Icons.menu_book,
+                      color: Colors.white, size: 32),
                 ),
                 const SizedBox(width: 15),
                 Expanded(
@@ -154,7 +155,8 @@ class _ModuleSheetState extends State<ModuleSheet> {
                   ),
                   child: Row(
                     children: [
-                      Icon(Icons.book, color: siaPrimary, size: isMobile ? 24 : 32),
+                      Icon(Icons.book,
+                          color: siaPrimary, size: isMobile ? 24 : 32),
                       const SizedBox(width: 14),
                       Expanded(
                         child: Text(
@@ -183,7 +185,8 @@ class _ModuleSheetState extends State<ModuleSheet> {
                                 fontWeight: FontWeight.bold,
                               ),
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(isMobile ? 8 : 12),
+                                borderRadius:
+                                    BorderRadius.circular(isMobile ? 8 : 12),
                               ),
                               elevation: 2,
                             ),

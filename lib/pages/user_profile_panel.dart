@@ -169,7 +169,8 @@ class _UserProfilePanelState extends State<UserProfilePanel> {
                     Text(
                       isAdmin
                           ? "ADMIN"
-                          : "${userData!['firstName'] ?? ''} ${userData!['lastName'] ?? ''}".trim(),
+                          : "${userData!['firstName'] ?? ''} ${userData!['lastName'] ?? ''}"
+                              .trim(),
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: isMobile ? 22 : 28,
@@ -181,7 +182,7 @@ class _UserProfilePanelState extends State<UserProfilePanel> {
                     const SizedBox(height: 10),
                     Text(
                       isAdmin
-                          ? user?.email ?? ""
+                          ? user.email ?? ""
                           : userData!['email'] ??
                               FirebaseAuth.instance.currentUser?.email ??
                               'N/A',

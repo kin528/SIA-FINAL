@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'module_sheet.dart';
 import 'play_panel.dart';
@@ -8,8 +7,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 // IT-inspired Gradient Color Palette
 const Color siaPrimary = Color(0xFF23297A); // deep tech blue
-const Color siaAccent = Color(0xFF00E0FF);  // neon cyan
-const Color siaPurp = Color(0xFF6D41A7);    // tech purple
+const Color siaAccent = Color(0xFF00E0FF); // neon cyan
+const Color siaPurp = Color(0xFF6D41A7); // tech purple
 const Color siaCard = Colors.white;
 const Color siaShadow = Color(0x1A23297A);
 
@@ -101,8 +100,8 @@ class _UserPageState extends State<UserPage> with TickerProviderStateMixin {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   shape: BoxShape.circle,
-                  border: Border.all(
-                      color: siaAccent.withOpacity(0.21), width: 2),
+                  border:
+                      Border.all(color: siaAccent.withOpacity(0.21), width: 2),
                 ),
                 padding: const EdgeInsets.all(6),
                 child: const Icon(Icons.school_rounded,
@@ -214,10 +213,12 @@ class _UserPageState extends State<UserPage> with TickerProviderStateMixin {
                 Expanded(
                   child: AnimatedSwitcher(
                     duration: const Duration(milliseconds: 350),
-                    child: _buildCenterContent(theme, BoxConstraints(
-                      maxWidth: MediaQuery.of(context).size.width - 80,
-                      maxHeight: MediaQuery.of(context).size.height,
-                    )),
+                    child: _buildCenterContent(
+                        theme,
+                        BoxConstraints(
+                          maxWidth: MediaQuery.of(context).size.width - 80,
+                          maxHeight: MediaQuery.of(context).size.height,
+                        )),
                   ),
                 ),
               ],
@@ -287,7 +288,8 @@ class _UserPageState extends State<UserPage> with TickerProviderStateMixin {
                         borderRadius: BorderRadius.circular(22),
                       ),
                       padding: const EdgeInsets.all(18),
-                      child: Icon(Icons.school_rounded, size: 100, color: siaAccent),
+                      child: Icon(Icons.school_rounded,
+                          size: 100, color: siaAccent),
                     ),
                     const SizedBox(height: 28),
                     Text(
@@ -410,8 +412,10 @@ class _ITNetworkPainter extends CustomPainter {
     // Draw nodes
     for (final node in nodes) {
       canvas.drawCircle(node, 15, nodePaint);
-      canvas.drawCircle(node, 6, nodePaint..color = const Color(0xFF00E0FF).withOpacity(0.22));
-      canvas.drawCircle(node, 2.5, Paint()..color = Colors.white.withOpacity(0.82));
+      canvas.drawCircle(node, 6,
+          nodePaint..color = const Color(0xFF00E0FF).withOpacity(0.22));
+      canvas.drawCircle(
+          node, 2.5, Paint()..color = Colors.white.withOpacity(0.82));
     }
   }
 

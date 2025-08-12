@@ -4,11 +4,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
-import 'dart:math';
 
 class SimpleDocumentEditor extends StatefulWidget {
   final int moduleNumber;
-  
+
   const SimpleDocumentEditor({
     super.key,
     required this.moduleNumber,
@@ -23,7 +22,7 @@ class _SimpleDocumentEditorState extends State<SimpleDocumentEditor> {
   final TextEditingController _contentController = TextEditingController();
   bool _saving = false;
   String? _saveStatus;
-  
+
   // Text formatting state
   bool _isBold = false;
   bool _isItalic = false;
@@ -32,8 +31,8 @@ class _SimpleDocumentEditorState extends State<SimpleDocumentEditor> {
   double _fontSize = 16.0;
 
   // Image state
-  List<String> _imageUrls = [];
-  List<String> _imageNames = [];
+  final List<String> _imageUrls = [];
+  final List<String> _imageNames = [];
   bool _uploadingImage = false;
 
   // Inline content state
@@ -44,9 +43,7 @@ class _SimpleDocumentEditorState extends State<SimpleDocumentEditor> {
   void initState() {
     super.initState();
     _titleController.text = "New Document - Module ${widget.moduleNumber}";
-    _blocks = [
-      _DocBlock.text("")
-    ];
+    _blocks = [_DocBlock.text("")];
   }
 
   @override
@@ -115,7 +112,9 @@ class _SimpleDocumentEditorState extends State<SimpleDocumentEditor> {
 
   // Helper to convert blocks back to content string
   String _blocksToContent() {
-    return _blocks.map((b) => b.isImage ? '[IMAGE: ${b.imageName}]' : b.text).join();
+    return _blocks
+        .map((b) => b.isImage ? '[IMAGE: ${b.imageName}]' : b.text)
+        .join();
   }
 
   // Insert image at selected position
@@ -154,7 +153,8 @@ class _SimpleDocumentEditorState extends State<SimpleDocumentEditor> {
         // Upload image to Cloudinary
         const cloudName = 'dzvz9o8kz';
         const uploadPreset = 'uploadPreset';
-        final uploadUrl = 'https://api.cloudinary.com/v1_1/$cloudName/image/upload';
+        final uploadUrl =
+            'https://api.cloudinary.com/v1_1/$cloudName/image/upload';
         MultipartFile multipartFile;
         if (kIsWeb) {
           if (file.bytes == null) {
@@ -184,7 +184,9 @@ class _SimpleDocumentEditorState extends State<SimpleDocumentEditor> {
             _saveStatus = "Image uploaded successfully!";
           });
           // Insert image at selected block index or at the end
-          int insertAt = _selectedBlockIndex >= 0 ? _selectedBlockIndex + 1 : _blocks.length;
+          int insertAt = _selectedBlockIndex >= 0
+              ? _selectedBlockIndex + 1
+              : _blocks.length;
           _insertImageAt(insertAt, imageUrl, fileName);
         } else {
           setState(() {
@@ -210,7 +212,8 @@ class _SimpleDocumentEditorState extends State<SimpleDocumentEditor> {
       });
       return;
     }
-    if (_blocks.where((b) => b.isText && b.text.trim().isNotEmpty).isEmpty && _blocks.where((b) => b.isImage).isEmpty) {
+    if (_blocks.where((b) => b.isText && b.text.trim().isNotEmpty).isEmpty &&
+        _blocks.where((b) => b.isImage).isEmpty) {
       setState(() {
         _saveStatus = "Please enter some content.";
       });
@@ -221,7 +224,8 @@ class _SimpleDocumentEditorState extends State<SimpleDocumentEditor> {
       _saveStatus = "Saving document...";
     });
     try {
-      final fileName = "${_titleController.text.trim().replaceAll(' ', '_')}_${DateTime.now().millisecondsSinceEpoch}.txt";
+      final fileName =
+          "${_titleController.text.trim().replaceAll(' ', '_')}_${DateTime.now().millisecondsSinceEpoch}.txt";
       final documentContent = _blocksToContent();
       final bytes = documentContent.codeUnits;
       const cloudName = 'dzvz9o8kz';
@@ -308,60 +312,75 @@ class _SimpleDocumentEditorState extends State<SimpleDocumentEditor> {
             ),
           ),
           const SizedBox(width: 16),
-          
+
           // Bold button
           IconButton(
-            icon: Icon(Icons.format_bold, color: _isBold ? Colors.blue : Colors.grey[600]),
+            icon: Icon(Icons.format_bold,
+                color: _isBold ? Colors.blue : Colors.grey[600]),
             onPressed: _toggleBold,
             tooltip: 'Bold',
           ),
-          
+
           // Italic button
           IconButton(
-            icon: Icon(Icons.format_italic, color: _isItalic ? Colors.blue : Colors.grey[600]),
+            icon: Icon(Icons.format_italic,
+                color: _isItalic ? Colors.blue : Colors.grey[600]),
             onPressed: _toggleItalic,
             tooltip: 'Italic',
           ),
-          
+
           // Underline button
           IconButton(
-            icon: Icon(Icons.format_underline, color: _isUnderline ? Colors.blue : Colors.grey[600]),
+            icon: Icon(Icons.format_underline,
+                color: _isUnderline ? Colors.blue : Colors.grey[600]),
             onPressed: _toggleUnderline,
             tooltip: 'Underline',
           ),
-          
+
           const SizedBox(width: 16),
-          
+
           // Insert Image button
           IconButton(
             icon: Icon(Icons.image, color: Colors.green[600]),
             onPressed: _uploadingImage ? null : _insertImage,
             tooltip: 'Insert Image',
           ),
-          
+
           const SizedBox(width: 16),
-          
+
           // Alignment buttons
           IconButton(
-            icon: Icon(Icons.format_align_left, color: _textAlign == TextAlign.left ? Colors.blue : Colors.grey[600]),
+            icon: Icon(Icons.format_align_left,
+                color: _textAlign == TextAlign.left
+                    ? Colors.blue
+                    : Colors.grey[600]),
             onPressed: () => _setTextAlign(TextAlign.left),
             tooltip: 'Align Left',
           ),
-          
+
           IconButton(
-            icon: Icon(Icons.format_align_center, color: _textAlign == TextAlign.center ? Colors.blue : Colors.grey[600]),
+            icon: Icon(Icons.format_align_center,
+                color: _textAlign == TextAlign.center
+                    ? Colors.blue
+                    : Colors.grey[600]),
             onPressed: () => _setTextAlign(TextAlign.center),
             tooltip: 'Align Center',
           ),
-          
+
           IconButton(
-            icon: Icon(Icons.format_align_right, color: _textAlign == TextAlign.right ? Colors.blue : Colors.grey[600]),
+            icon: Icon(Icons.format_align_right,
+                color: _textAlign == TextAlign.right
+                    ? Colors.blue
+                    : Colors.grey[600]),
             onPressed: () => _setTextAlign(TextAlign.right),
             tooltip: 'Align Right',
           ),
-          
+
           IconButton(
-            icon: Icon(Icons.format_align_justify, color: _textAlign == TextAlign.justify ? Colors.blue : Colors.grey[600]),
+            icon: Icon(Icons.format_align_justify,
+                color: _textAlign == TextAlign.justify
+                    ? Colors.blue
+                    : Colors.grey[600]),
             onPressed: () => _setTextAlign(TextAlign.justify),
             tooltip: 'Justify',
           ),
@@ -389,7 +408,9 @@ class _SimpleDocumentEditorState extends State<SimpleDocumentEditor> {
                     child: Container(
                       decoration: BoxDecoration(
                         border: Border.all(
-                          color: _selectedBlockIndex == i ? Colors.blue : Colors.grey[300]!,
+                          color: _selectedBlockIndex == i
+                              ? Colors.blue
+                              : Colors.grey[300]!,
                           width: _selectedBlockIndex == i ? 2 : 1,
                         ),
                         borderRadius: BorderRadius.circular(8),
@@ -402,7 +423,8 @@ class _SimpleDocumentEditorState extends State<SimpleDocumentEditor> {
                       ),
                     ),
                   ),
-                  subtitle: Text(_blocks[i].imageName ?? '', style: const TextStyle(fontSize: 10)),
+                  subtitle: Text(_blocks[i].imageName ?? '',
+                      style: const TextStyle(fontSize: 10)),
                 )
               : ListTile(
                   key: ValueKey('txt_$i'),
@@ -416,8 +438,11 @@ class _SimpleDocumentEditorState extends State<SimpleDocumentEditor> {
                     style: TextStyle(
                       fontSize: _fontSize,
                       fontWeight: _isBold ? FontWeight.bold : FontWeight.normal,
-                      fontStyle: _isItalic ? FontStyle.italic : FontStyle.normal,
-                      decoration: _isUnderline ? TextDecoration.underline : TextDecoration.none,
+                      fontStyle:
+                          _isItalic ? FontStyle.italic : FontStyle.normal,
+                      decoration: _isUnderline
+                          ? TextDecoration.underline
+                          : TextDecoration.none,
                     ),
                     textAlign: _textAlign,
                     onChanged: (val) {
@@ -455,7 +480,8 @@ class _SimpleDocumentEditorState extends State<SimpleDocumentEditor> {
               icon: const Icon(Icons.save, color: Colors.white),
               label: const Text(
                 "Save",
-                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
               ),
               onPressed: _saveDocument,
             ),
@@ -525,10 +551,10 @@ class _SimpleDocumentEditorState extends State<SimpleDocumentEditor> {
                           ],
                         ),
                       ),
-                      
+
                       // Toolbar
                       _buildToolbar(),
-                      
+
                       // Inline Editor
                       Container(
                         height: isWide ? 500 : 400,
@@ -539,7 +565,7 @@ class _SimpleDocumentEditorState extends State<SimpleDocumentEditor> {
                         ),
                         child: _buildInlineEditor(),
                       ),
-                      
+
                       // Status Message
                       if (_saveStatus != null)
                         Padding(
@@ -548,12 +574,14 @@ class _SimpleDocumentEditorState extends State<SimpleDocumentEditor> {
                             width: double.infinity,
                             padding: const EdgeInsets.all(12),
                             decoration: BoxDecoration(
-                              color: _saveStatus!.contains("Error") || _saveStatus!.contains("Failed")
+                              color: _saveStatus!.contains("Error") ||
+                                      _saveStatus!.contains("Failed")
                                   ? Colors.red[50]
                                   : Colors.green[50],
                               borderRadius: BorderRadius.circular(8),
                               border: Border.all(
-                                color: _saveStatus!.contains("Error") || _saveStatus!.contains("Failed")
+                                color: _saveStatus!.contains("Error") ||
+                                        _saveStatus!.contains("Failed")
                                     ? Colors.red[200]!
                                     : Colors.green[200]!,
                               ),
@@ -561,7 +589,8 @@ class _SimpleDocumentEditorState extends State<SimpleDocumentEditor> {
                             child: Text(
                               _saveStatus!,
                               style: TextStyle(
-                                color: _saveStatus!.contains("Error") || _saveStatus!.contains("Failed")
+                                color: _saveStatus!.contains("Error") ||
+                                        _saveStatus!.contains("Failed")
                                     ? Colors.red[700]
                                     : Colors.green[700],
                                 fontWeight: FontWeight.bold,
@@ -571,7 +600,7 @@ class _SimpleDocumentEditorState extends State<SimpleDocumentEditor> {
                             ),
                           ),
                         ),
-                      
+
                       // Save Button
                       if (!_saving)
                         Padding(
@@ -582,14 +611,17 @@ class _SimpleDocumentEditorState extends State<SimpleDocumentEditor> {
                               icon: const Icon(Icons.save, size: 24),
                               label: const Text(
                                 "Save Document",
-                                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.w600),
                               ),
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Theme.of(context).primaryColor,
                                 foregroundColor: Colors.white,
-                                padding: EdgeInsets.symmetric(vertical: isWide ? 20 : 16),
+                                padding: EdgeInsets.symmetric(
+                                    vertical: isWide ? 20 : 16),
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(isWide ? 16 : 12),
+                                  borderRadius:
+                                      BorderRadius.circular(isWide ? 16 : 12),
                                 ),
                                 elevation: 6,
                               ),
@@ -620,4 +652,4 @@ class _DocBlock {
       : imageUrl = null,
         imageName = null;
   _DocBlock.image(this.imageUrl, this.imageName) : text = "";
-} 
+}

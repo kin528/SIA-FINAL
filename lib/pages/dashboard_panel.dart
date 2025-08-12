@@ -74,7 +74,8 @@ class _AdminDashboard extends StatelessWidget {
   final VoidCallback? onBack;
   const _AdminDashboard({this.onBack});
 
-  void _showAllStudentsDialog(BuildContext context, List<QueryDocumentSnapshot<Map<String, dynamic>>> students) {
+  void _showAllStudentsDialog(BuildContext context,
+      List<QueryDocumentSnapshot<Map<String, dynamic>>> students) {
     showDialog(
       context: context,
       builder: (context) => _AllStudentsDialog(students: students),
@@ -134,7 +135,8 @@ class _AdminDashboard extends StatelessWidget {
                     ),
                     padding: const EdgeInsets.all(12),
                     // CHANGED ICON HERE!
-                    child: const Icon(Icons.dashboard_customize, color: Colors.white, size: 32),
+                    child: const Icon(Icons.dashboard_customize,
+                        color: Colors.white, size: 32),
                   ),
                   const SizedBox(width: 15),
                   Text(
@@ -184,7 +186,8 @@ class _AdminDashboard extends StatelessWidget {
                     ),
                     child: Row(
                       children: [
-                        Icon(Icons.people_alt, color: siaPrimary, size: isMobile ? 27 : 32),
+                        Icon(Icons.people_alt,
+                            color: siaPrimary, size: isMobile ? 27 : 32),
                         const SizedBox(width: 11),
                         Text(
                           "Total Students: ",
@@ -203,7 +206,8 @@ class _AdminDashboard extends StatelessWidget {
                           ),
                         ),
                         const Spacer(),
-                        Icon(Icons.visibility, color: siaAccent, size: isMobile ? 22 : 26),
+                        Icon(Icons.visibility,
+                            color: siaAccent, size: isMobile ? 22 : 26),
                         const SizedBox(width: 6),
                         Text(
                           "View All",
@@ -228,7 +232,9 @@ class _AdminDashboard extends StatelessWidget {
                 final name = "$firstName $lastName".trim();
                 final lastNameInitial = lastName.isNotEmpty
                     ? lastName.substring(0, 1).toUpperCase()
-                    : (firstName.isNotEmpty ? firstName.substring(0, 1).toUpperCase() : '?');
+                    : (firstName.isNotEmpty
+                        ? firstName.substring(0, 1).toUpperCase()
+                        : '?');
 
                 return _HoverableUserCard(
                   name: name.isNotEmpty ? name : userId,
@@ -258,8 +264,10 @@ class _AllStudentsDialog extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(26)),
       child: Container(
         width: isWide ? 570 : double.infinity,
-        constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.85),
-        padding: EdgeInsets.symmetric(horizontal: isWide ? 32 : 12, vertical: isWide ? 30 : 16),
+        constraints: BoxConstraints(
+            maxHeight: MediaQuery.of(context).size.height * 0.85),
+        padding: EdgeInsets.symmetric(
+            horizontal: isWide ? 32 : 12, vertical: isWide ? 30 : 16),
         decoration: BoxDecoration(
           color: siaCard,
           borderRadius: BorderRadius.circular(26),
@@ -323,7 +331,9 @@ class _AllStudentsDialog extends StatelessWidget {
                         final name = "$firstName $lastName".trim();
                         final lastNameInitial = lastName.isNotEmpty
                             ? lastName.substring(0, 1).toUpperCase()
-                            : (firstName.isNotEmpty ? firstName.substring(0, 1).toUpperCase() : '?');
+                            : (firstName.isNotEmpty
+                                ? firstName.substring(0, 1).toUpperCase()
+                                : '?');
                         return ListTile(
                           leading: CircleAvatar(
                             backgroundColor: siaAccent.withOpacity(0.33),
@@ -367,7 +377,8 @@ class _AllStudentsDialog extends StatelessWidget {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),
-                          trailing: Icon(Icons.arrow_forward_ios_rounded, color: siaAccent, size: 18),
+                          trailing: Icon(Icons.arrow_forward_ios_rounded,
+                              color: siaAccent, size: 18),
                         );
                       },
                     ),
@@ -476,7 +487,8 @@ class _HoverableUserCardState extends State<_HoverableUserCard> {
                   ],
                 ),
                 const SizedBox(height: 10),
-                _StudentScores(userId: widget.userId, isMobile: widget.isMobile),
+                _StudentScores(
+                    userId: widget.userId, isMobile: widget.isMobile),
               ],
             ),
           ),
@@ -499,7 +511,8 @@ class _UserDetailDialog extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28)),
       child: Container(
         width: isWide ? 520 : double.infinity,
-        padding: EdgeInsets.symmetric(horizontal: isWide ? 40 : 16, vertical: isWide ? 38 : 22),
+        padding: EdgeInsets.symmetric(
+            horizontal: isWide ? 40 : 16, vertical: isWide ? 38 : 22),
         decoration: BoxDecoration(
           color: siaCard,
           borderRadius: BorderRadius.circular(28),
@@ -530,7 +543,8 @@ class _UserDetailDialog extends StatelessWidget {
                 children: [
                   Icon(Icons.error, color: Colors.red, size: 54),
                   const SizedBox(height: 14),
-                  Text('Error loading user info.', style: TextStyle(fontSize: 20, color: Colors.red)),
+                  Text('Error loading user info.',
+                      style: TextStyle(fontSize: 20, color: Colors.red)),
                   const SizedBox(height: 14),
                   _closeButton(context)
                 ],
@@ -543,12 +557,16 @@ class _UserDetailDialog extends StatelessWidget {
               );
             }
             final userData = snapshot.data!.data() ?? {};
-            final fullName = "${userData['firstName'] ?? ''} ${userData['lastName'] ?? ''}".trim();
+            final fullName =
+                "${userData['firstName'] ?? ''} ${userData['lastName'] ?? ''}"
+                    .trim();
             final lastName = (userData['lastName'] ?? '').toString();
             final lastNameInitial = lastName.isNotEmpty
                 ? lastName.substring(0, 1).toUpperCase()
                 : (userData['firstName'] ?? '').toString().isNotEmpty
-                    ? (userData['firstName'] as String).substring(0, 1).toUpperCase()
+                    ? (userData['firstName'] as String)
+                        .substring(0, 1)
+                        .toUpperCase()
                     : '?';
 
             return Column(
@@ -558,7 +576,10 @@ class _UserDetailDialog extends StatelessWidget {
                 Container(
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [siaPrimary.withOpacity(0.2), siaAccent.withOpacity(0.18)],
+                      colors: [
+                        siaPrimary.withOpacity(0.2),
+                        siaAccent.withOpacity(0.18)
+                      ],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                     ),
@@ -598,16 +619,21 @@ class _UserDetailDialog extends StatelessWidget {
                     color: siaAccent.withOpacity(0.13),
                     borderRadius: BorderRadius.circular(16),
                   ),
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                   margin: const EdgeInsets.symmetric(vertical: 13),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _infoRow("Gmail", userData['email'] ?? 'N/A', Icons.email),
-                      _infoRow("Age", (userData['age'] ?? 'N/A').toString(), Icons.cake),
+                      _infoRow(
+                          "Gmail", userData['email'] ?? 'N/A', Icons.email),
+                      _infoRow("Age", (userData['age'] ?? 'N/A').toString(),
+                          Icons.cake),
                       _infoRow("Sex", userData['sex'] ?? 'N/A', Icons.wc),
-                      _infoRow("First Name", userData['firstName'] ?? 'N/A', Icons.badge),
-                      _infoRow("Last Name", userData['lastName'] ?? 'N/A', Icons.badge),
+                      _infoRow("First Name", userData['firstName'] ?? 'N/A',
+                          Icons.badge),
+                      _infoRow("Last Name", userData['lastName'] ?? 'N/A',
+                          Icons.badge),
                     ],
                   ),
                 ),
@@ -626,10 +652,12 @@ class _UserDetailDialog extends StatelessWidget {
       alignment: Alignment.center,
       child: OutlinedButton.icon(
         icon: Icon(Icons.close, color: siaPrimary),
-        label: Text("Close", style: TextStyle(color: siaPrimary, fontWeight: FontWeight.bold)),
+        label: Text("Close",
+            style: TextStyle(color: siaPrimary, fontWeight: FontWeight.bold)),
         style: OutlinedButton.styleFrom(
           side: BorderSide(color: siaPrimary.withOpacity(0.3), width: 1.8),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
           padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 13),
         ),
         onPressed: () => Navigator.of(context).pop(),
@@ -646,12 +674,16 @@ class _UserDetailDialog extends StatelessWidget {
           const SizedBox(width: 14),
           Text(
             "$label: ",
-            style: TextStyle(fontWeight: FontWeight.w700, color: siaPrimary, fontSize: 17),
+            style: TextStyle(
+                fontWeight: FontWeight.w700, color: siaPrimary, fontSize: 17),
           ),
           Flexible(
             child: Text(
               value,
-              style: TextStyle(color: Colors.black87, fontWeight: FontWeight.w600, fontSize: 17),
+              style: TextStyle(
+                  color: Colors.black87,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 17),
               softWrap: true,
             ),
           ),
@@ -952,8 +984,8 @@ class _MyModuleScores extends StatelessWidget {
           elevation: 4,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(isMobile ? 10 : 16)),
-          margin: EdgeInsets.only(
-              bottom: isMobile ? 12 : 22, left: 0, right: 0),
+          margin:
+              EdgeInsets.only(bottom: isMobile ? 12 : 22, left: 0, right: 0),
           color: siaAccent.withOpacity(0.10),
           shadowColor: siaShadow,
           child: Padding(

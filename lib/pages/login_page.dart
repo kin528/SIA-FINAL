@@ -98,7 +98,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
     final theme = Theme.of(context);
 
     return Scaffold(
-      backgroundColor: theme.colorScheme.background,
+      backgroundColor: theme.colorScheme.surface,
       body: Stack(
         children: [
           Positioned.fill(
@@ -221,7 +221,8 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                       }
                     },
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 14),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 32, vertical: 14),
                       decoration: BoxDecoration(
                         color: siaAccent.withOpacity(0.22),
                         borderRadius: BorderRadius.circular(30),
@@ -350,8 +351,10 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                     child: Text(
                       "Welcome to SIA Portal",
                       key: _titleKey,
-                      style: theme.textTheme.headlineSmall!
-                          .copyWith(fontWeight: FontWeight.bold, fontSize: isWide ? 29 : 21, letterSpacing: .7),
+                      style: theme.textTheme.headlineSmall!.copyWith(
+                          fontWeight: FontWeight.bold,
+                          fontSize: isWide ? 29 : 21,
+                          letterSpacing: .7),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -445,8 +448,8 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                             style: ElevatedButton.styleFrom(
                               backgroundColor: theme.primaryColor,
                               foregroundColor: Colors.white,
-                              padding:
-                                  EdgeInsets.symmetric(vertical: isWide ? 18 : 14),
+                              padding: EdgeInsets.symmetric(
+                                  vertical: isWide ? 18 : 14),
                               textStyle: TextStyle(
                                 fontSize: isWide ? 20 : 16,
                                 fontWeight: FontWeight.bold,
@@ -460,7 +463,8 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                                 ],
                               ),
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(isWide ? 15 : 10),
+                                borderRadius:
+                                    BorderRadius.circular(isWide ? 15 : 10),
                               ),
                               elevation: 3,
                             ),
@@ -500,7 +504,8 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                         child: const Text(
                           'Sign up',
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, color: Color(0xFF415A77)),
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFF415A77)),
                         ),
                       ),
                     ],
@@ -557,9 +562,11 @@ class _BackgroundNetworkPainter extends CustomPainter {
     }
     for (final node in nodes) {
       canvas.drawCircle(node, 15, nodePaint);
-      canvas.drawCircle(node, 7, nodePaint..color = Colors.blueGrey.withOpacity(0.18));
+      canvas.drawCircle(
+          node, 7, nodePaint..color = Colors.blueGrey.withOpacity(0.18));
     }
   }
+
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
